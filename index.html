@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Треугольник Серпинского</title>
+    <meta charset='utf-8' />
+    <style type="text/css">
+        body {
+            background: #222;
+            overflow: hidden;
+            color: #fff;
+            margin: 0;
+        }
+        canvas {
+            position: absolute;
+        }
+        #menu {
+            border-radius: 10%;
+            background: #000c;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            margin: 10px;
+        }
+        #menu *{
+            margin: 5px 0 0 0;
+        }
+        .point{
+            width: 20px;
+            height: 20px;
+            border: solid #fff 5px;
+            position: fixed;
+            border-radius: 50%;
+            cursor: grab;
+            transform: translate(-15px,-15px);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <div id="menu">
+        <span id="log">0</span><span> точек</span>
+        <div>скорость:</div>
+        <input type="range" id="speed" max="100000" value = 5000>
+        <div>процент:</div>
+        <input type="range" id="procent" step="0.01" max="1" value = 0.5><br>
+        <button id="reset">очистить</button><br>
+        <input type="checkbox" id="moveClear" checked><span> сразу очищать</span><br>
+        <button id="addPoint">добавить точку</button><br>
+        <button id="deletPoint">удалить точку</button>
+    </div>
+    <div id="pointsDOM"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>
