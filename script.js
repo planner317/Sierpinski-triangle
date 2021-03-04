@@ -30,20 +30,26 @@ function createPoint(x, y) {
   let position = { x, y }
   points.push(position)
 
-  pointDOM.onmousedown = () => {
+  pointDOM.onmousedown = pointDOM.ontouchstart=(e) => {
     canvas.style.zIndex = 1000
 
     function moveAt(e) {
-      pointDOM.style.left = e.x + "px"
-      pointDOM.style.top = e.y + "px"
-      position.x = e.x
-      position.y = e.y
+      if (e.type === "touchmove") {
+        position.x = e.touches[0].clientX
+        position.y = e.touches[0].clientY
+      } else {
+        position.x = e.x
+        position.y = e.y       
+      }
+      pointDOM.style.left = position.x + "px"
+      pointDOM.style.top = position.y + "px"
       canvas.style.cursor = "grabbing"
       if (moveClear.checked) reseted()
     }
 
     function removeEvent() {
       canvas.removeEventListener("mousemove", moveAt)
+      canvas.removeEventListener("touchmove", moveAt)
       canvas.onmouseup = null
       canvas.style.cursor = "default"
       canvas.style.zIndex = 0
@@ -51,7 +57,9 @@ function createPoint(x, y) {
     }
 
     canvas.addEventListener("mousemove", moveAt)
+    canvas.addEventListener("touchmove", moveAt)
     canvas.onmouseout = removeEvent
+    canvas.ontouchend = removeEvent
     canvas.onmouseup = removeEvent
   }
 }
